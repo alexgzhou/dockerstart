@@ -24,6 +24,7 @@ $ docker container ls --all
 $ docker container ls -aq
 $ docker ps
 $ docker ps -a
+$ docker ps -aq
 ```
 
 ## [Part 2: Containers](https://docs.docker.com/get-started/part2/)
@@ -33,7 +34,7 @@ $ docker ps -a
   * 应用程序栈
   * 应用交互
 * swarm/cluster
-  * Multi-container, multi-machine applications are made possible by joining multiple machines into a “Dockerized” cluster called a swarm
+  * Multi-container, multi-machine applications are made possible by joining multiple machines into a "Dockerized" cluster called a swarm
   * docker-compose.yml
 * Services
   * 微服务
@@ -54,6 +55,7 @@ $ docker stop 9c
 $ docker container kill <hash>          # Force shutdown of the specified container
 $ docker container rm <hash>         # Remove specified container from this machine
 $ docker container rm $(docker container ls -a -q)          # Remove all containers
+$ docker rm $(docker ps -aq)                 # Same as above, Remove all containers
 $ docker image ls -a                              # List all images on this machine
 $ docker image rm <image id>             # Remove specified image from this machine
 $ docker image rm $(docker image ls -a -q)    # Remove all images from this machine
@@ -72,6 +74,8 @@ $ docker swarm init --advertise-addr <machine ip>
 $ docker stack ls                                             # List stacks or apps
 $ docker stack deploy -c <composefile> <appname>   # Run the specified Compose file
 $ docker stack deploy -c docker-compose.yml getstartedlab  # or update Compose file
+$ docker stack services getstartedlab
+$ docker stack ps getstartedlab
 $ docker service ls                  # List running services associated with an app
 $ docker service ps <service>                   # List tasks associated with an app
 $ docker service ps getstartedlab_web
@@ -134,10 +138,11 @@ $ docker-machine rm $(docker-machine ls -q)  # Delete all VMs and their disk ima
 
 ## [Part 6: Deploy your app](https://docs.docker.com/get-started/part6/)
 * 重要概念:
-  * A `swarm` is a `group of machines` that are running Docker and joined into a `cluster`. After that has happened, you continue to run the Docker commands you’re used to, but now they are executed on a cluster by a `swarm manager`. The machines in a swarm can be `physical or virtual`. After joining a swarm, they are referred to as `nodes`;
+  * A `swarm` is a `group of machines` that are running Docker and joined into a `cluster`. After that has happened, you continue to run the Docker commands you're used to, but now they are executed on a cluster by a `swarm manager`. The machines in a swarm can be `physical or virtual`. After joining a swarm, they are referred to as `nodes`;
   * `Swarm managers` are the only machines in a swarm that can execute your commands, or authorize other machines to join the swarm as `workers`. `Workers` are just there to provide capacity and do not have the authority to tell any other machine what it can and cannot do;
-  * Enabling swarm mode (`$ docker swarm init`) instantly makes `the current machine` a swarm manager. From then on, Docker runs the commands you execute on the swarm you’re managing, rather than just on the current machine.
+  * Enabling swarm mode (`$ docker swarm init`) instantly makes `the current machine` a swarm manager. From then on, Docker runs the commands you execute on the swarm you're managing, rather than just on the current machine.
 * 后续知识:
   * 如何查看日志: `$ docker logs --help`
   * `docker-compose.yml` 详细配置属性
   * `docker-compose`, `docker-machine` 命令
+  * [多阶段编译](https://docs.docker.com/develop/develop-images/multistage-build/)
