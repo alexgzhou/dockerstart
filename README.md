@@ -52,6 +52,7 @@ $ docker container ls -a              # List all containers, even those not runn
 $ docker ps
 $ docker container stop <hash>            # Gracefully stop the specified container
 $ docker stop 9c
+$ docker stop $(docker ps -aq)                                # Stop all containers
 $ docker container kill <hash>          # Force shutdown of the specified container
 $ docker container rm <hash>         # Remove specified container from this machine
 $ docker container rm $(docker container ls -a -q)          # Remove all containers
