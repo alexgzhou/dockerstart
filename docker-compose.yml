@@ -1,5 +1,6 @@
 version: "3"
 services:
+  # service name 不能有大写字母, 否则不能作为其他服务访问本服务的 URL 地址(提示超时)
   web:
     # replace username/repo:tag with your name and image details
     image: alexgzhou/friendlyhello:latest
@@ -15,6 +16,7 @@ services:
       - "80:80"
     networks:
       - webnet
+  # service name 不能有大写字母, 否则不能作为其他服务访问本服务的 URL 地址(提示超时)
   visualizer:
     image: dockersamples/visualizer:stable
     ports:
@@ -26,6 +28,7 @@ services:
         constraints: [node.role == manager]
     networks:
       - webnet
+  # service name 不能有大写字母, 否则不能作为其他服务访问本服务的 URL 地址(提示超时)
   redis:
     image: redis
     ports:
